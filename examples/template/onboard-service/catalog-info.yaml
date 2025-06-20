@@ -4,10 +4,11 @@ metadata:
   name: onboard-service
   title: Onboard Service Template
   description: Template to onboard a new service
+  owner: your-team
 spec:
   type: service
   path: ./template.yaml
   lifecycle: experimental
-  owner: your-team
+  
 
 #run this command to register the template yarn backstage-cli catalog:import
