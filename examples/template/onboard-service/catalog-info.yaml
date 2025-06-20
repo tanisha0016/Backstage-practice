@@ -1,11 +1,12 @@
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Template
 metadata:
   name: onboard-service
   title: Onboard Service Template
   description: Template to onboard a new service
 spec:
-  type: template
+  type: service
+  path: ./template.yaml
   lifecycle: experimental
   owner: your-team
 
