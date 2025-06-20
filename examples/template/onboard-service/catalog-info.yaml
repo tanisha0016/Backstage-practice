@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: onboard-service
+  title: Onboard Service Template
+  description: Template to onboard a new service
+spec:
+  type: template
+  lifecycle: experimental
+  owner: your-team
+
+#run this command to register the template yarn backstage-cli catalog:import

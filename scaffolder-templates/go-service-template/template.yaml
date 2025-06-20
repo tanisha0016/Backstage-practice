@@ -1,0 +1,60 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: spring-boot-basic-on-kubernetes-template
+  title: Create a Spring Boot app for Kubernetes
+  description: Generates a Spring Boot app ready to deploy on Kubernetes
+  tags:
+    - java
+    - spring
+    - kubernetes
+spec:
+  owner: your-team
+  type: service
+  parameters:
+    - title: Provide some basic information
+      required:
+        - component_id
+        - owner
+      properties:
+        component_id:
+          type: string
+          title: Component ID
+          description: Unique name of the component
+        owner:
+          type: string
+          title: Owner
+          description: The team that owns this component
+
+  steps:
+    - id: fetch
+      name: Fetch Template
+      action: fetch:template
+      input:
+        url: ./template
+        targetPath: ./generated
+        values:
+          component_id: ${{ parameters.component_id }}
+          owner: ${{ parameters.owner }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: This is a basic Spring Boot app
+        repoUrl: github.com?repo=${{ parameters.component_id }}&owner=your-org
+
+    - id: register
+      name: Register in Backstage
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in Catalog
+        url: ${{ steps.register.output.catalogItemUrl }}
