@@ -8,7 +8,7 @@ metadata:
 spec:
   type: service
   path: ./template.yaml
-  lifecycle: experimental
+  # lifecycle: experimental
   
 
 #run this command to register the template yarn backstage-cli catalog:import
